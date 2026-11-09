@@ -1,6 +1,6 @@
 # TUD TN13015 portfolio
 
-This repository provides a template for creating a portfolio for the Q2 course "TN13015: Inleidend Practicum 2" using [JupyterBook 2](https://jupyterbook.org/) tailored for the Delft University of Technology (TUD).
+This repository provides a template for creating a portfolio for the Q2 course "TN13015: Inleidend Practicum 2" using [JupyterBook 2](https://jupyterbook.org/) tailored for the Delft University of Technology (TUD). BOMBOCLATT
 
 ## Getting Started
 

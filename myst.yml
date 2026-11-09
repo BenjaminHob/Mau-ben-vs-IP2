@@ -1,0 +1,33 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: d4ed63d4-e4ba-4d57-b9c3-8f8af2dac267
+  title: Python Thermodynamica Simulaties voor TN13015
+  # description:
+  # keywords: []
+  authors: 
+    - name: Freek Pols
+    - name: Roel Smit
+
+  github: https://github.com/Contemporary-Physicslab/thermolab
+  plugins:
+    - https://github.com/jupyter-book/myst-plugins/releases/download/page-last-updatedv1.1/page-last-updated.mjs
+  toc:
+    - file: index.md
+    - file: simulations/repostart.md
+    - file: simulations/intro.md
+    - file: simulations/NB1_deeltjesmodel.md
+    - file: simulations/NB2_brownianmotion.md
+    - file: simulations/NB3_druktemp.md
+    - file: simulations/NB4_boltzmann.md
+    - file: simulations/NB5_arbeid.md
+    - file: simulations/NB6_thermostaat.md
+    - file: simulations/NB7_cycli.md
+    - file: simulations/NB8_entropie.md
+    - file: simulations/NB9_zonnecel.md
+    - title: Appendix
+      children:
+      - file: codechecks.md
+
+extends:
+  - https://raw.githubusercontent.com/Contemporary-Physicslab/assets/refs/heads/main/style.yml

@@ -10,7 +10,7 @@ Grofweg doorloop je de volgende stappen:
 
 1. Het gebruik maken (kopieren) van de template door een van de twee partners.
 2. Het activeren van GitHub pages.
-3. Het beschermen van de main brnach.
+3. Het beschermen van de main branch.
 4. Het uitnodigen van de partner
 5. De repository lokaal beschikbaar maken.
 6. Lokaal een nieuwe branch aan maken, aan de slag.

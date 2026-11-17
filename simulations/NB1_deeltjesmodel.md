@@ -231,6 +231,8 @@ En als je wilt gaan voor een uitdaging:
 ```python
 ### YOUR CODE HERE ###
 import random
+import numpy as np
+import matplotlib.pyplot as plt
 
 class ParticleClass:
     def __init__(self, v, r):
@@ -241,11 +243,29 @@ class ParticleClass:
         """Werk de positie van het deeltje bij op basis van zijn snelheid en tijdstap dt."""
         self.r += self.v * dt
 
-particles = np.array([])
+particles = []
 
-# for i in range(10):
-#     particles.append(ParticleClass(v=randint))
-help(np.randint)
+for i in range(10):
+    particles.append(ParticleClass(random.uniform(-5,5),random.uniform(-20,20)))
+
+n=1000
+dt=0.01
+x = np.arange(0,n*dt,dt)
+y = []
+
+for deeltje in particles:
+    y_part = []
+    for i in range(n):
+        y_part.append(float(deeltje.r))
+        deeltje.update_position(dt)
+    y.append(y_part)
+
+
+plt.figure()
+for i in range(10):
+    plt.plot(x,y[i],'k.')
+plt.show()
+
 ```
 
 Onze simulaties worden snel “zwaar”. Er moeten veel berekeningen gedaan worden en dat kost nu eenmaal tijd. Nu is het wel zo dat sommige berekeningen meer tijd kosten dan anderen. Om te kijken of een stukje code geoptimaliseerd kan worden, moeten we een timer maken. Dat kan met onderstaande code:

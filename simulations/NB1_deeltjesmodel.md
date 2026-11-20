@@ -36,7 +36,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Beginwaarden
-dt = 0.25                  #s
+dt = .25                  #s
 t_e = 10                   #s
 N = int(t_e/dt)+1
 t = np.arange(0,t_e+dt,dt) #s
@@ -97,7 +97,16 @@ Een *class* is een blauwdruk voor het creëren van objecten (zoals deeltjes, ato
 # Merk op dat de class zelf geen deeltje is! 
 # Een object dat tot een bepaalde class behoort, wordt een instant van die class genoemd. 
 # Je kunt meerdere instants van een class hebben.
-
+class pc:
+    def __init__(part,m,r,v,a):
+        part.m = m
+        part.r = np.array(r,dtype=float)
+        part.v = np.array(v,dtype=float)
+        part.a = np.array(a,dtype=float)
+    def update_pos(part,dt):
+        part.v += part.a*dt
+        part.r += part.v*dt
+        
 class ParticleClass:
     def __init__(self, m, v, r, R):
         self.m = m                         # massa van het deeltje
@@ -108,7 +117,10 @@ class ParticleClass:
     def update_position(self,dt):
         """Werk de positie van het deeltje bij op basis van zijn snelheid en tijdstap dt."""
         self.r += self.v * dt
+thees_particle = pc(m=1.0, v=[5.0, 0], r=[0.0, 0.0], a=[1,0])
 
+
+print("Nieuwe positie " + str(thees_particle.r))
 print(ParticleClass)
 ```
 
@@ -127,7 +139,8 @@ print(this_particle)
 ```
 
 ```python
-%whos
+thees_particle.update_pos(1.0)
+print("Nieuwe positie " + str(thees_particle.r))
 ```
 
 Nu we een object hebben, laten we eens kijken of we de eigenschappen van het object kunnen opvragen:
@@ -170,7 +183,9 @@ for start_x in range(4):
 
 print("Hoe het array eruit ziet volgens python: " + str(particle_array))
 print("Hoe een element van het array eruit ziet volgens python: " + str(particle_array[0]))
-print("Hoe een eigenschap (in dit geval: 'r') van het element van het array eruit ziet volgens python: " + str(particle_array[0].r))
+print("Hoe een eigenschap (in dit geval: 'r') van het element van het array eruit ziet volgens python: " + str(particle_array[3].r))
+
+
 ```
 
 ```{exercise} Voorspel
@@ -183,6 +198,7 @@ Voorspel en controleer vervolgens met onderstaande code.
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
+particle_array[0].update_position(2.0)
 
 plt.figure()
 for particle in particle_array:
@@ -205,6 +221,9 @@ for particle, particle_object in enumerate(particle_array):
     print("Volgende positie " + str(particle_object.r))
     if particle < len(particle_array) - 1:
         print("Naar het volgende deeltje \n")
+
+for particle, particle_object in enumerate(particle_array):
+    particle_object.update_position(1.0)   
     
 ```
 
@@ -230,6 +249,30 @@ En als je wilt gaan voor een uitdaging:
 
 ```python
 ### YOUR CODE HERE ###
+class maakdeeltje:
+    def __init__(deeltje,r,v):
+        deeltje.r = np.array(r,dtype=float)
+        deeltje.v = np.array(v,dtype=float)
+    def update_pos(deeltje,dt):
+        deeltje.r += deeltje.v*dt
+
+
+
+deeltjes = []
+plt.figure()
+for x in range(10):
+    deeltjes.append(maakdeeltje(r= [0,0] ,v = [np.random.randint(-5,5),0]))
+for deeltje in deeltjes:
+    plt.plot(deeltje.r[0],deeltje.r[1],'k.')
+
+for deeltje in range(len(deeltjes)-1):
+    deeltjes[deeltje].update_pos(10)
+
+
+
+for deeltje in deeltjes:
+    plt.plot(deeltje.r[0],deeltje.r[1],'k.')
+plt.show()
 ```
 
 Onze simulaties worden snel “zwaar”. Er moeten veel berekeningen gedaan worden en dat kost nu eenmaal tijd. Nu is het wel zo dat sommige berekeningen meer tijd kosten dan anderen. Om te kijken of een stukje code geoptimaliseerd kan worden, moeten we een timer maken. Dat kan met onderstaande code:
@@ -243,13 +286,13 @@ start = time.time()
 array = np.array([])
 N = int(1e5)
 
-for i in range(N):
-    array = np.append(array,np.random.rand(1))
+np.random.rand(N)
 
 eind = time.time()
 lengte = eind - start
 
 print("Dit kostte ", lengte, "seconde!")
+
 ```
 
 Idealiter draaien we de bovenstaande code een aantal keer zodat we een goede schatting hebben van de rekentijd.
@@ -407,6 +450,8 @@ def init():
 def update(frame):
     particle.update_position()
     dot.set_data([particle.r[0]], [particle.r[1]])
+    if abs(particle.r[0]) >= 10:
+        particle.v[0] = -particle.v[0]
     return dot,
 
 # Create animation
@@ -432,7 +477,10 @@ Controleer je eigen antwoord door de functie hierboven even te vervangen door de
 def update(frame):
     particle.update_position()
     dot.set_data([particle.r[0]], [particle.r[1]])
+    
 ### YOUR CODE HERE ###
+    if particle.r[0] >= 10:
+        particle.r[0] = -10
     return dot,         
 ```
 
@@ -449,6 +497,8 @@ def update(frame):
     particle.update_position()
     dot.set_data([particle.r[0]], [particle.r[1]])
 ### YOUR CODE HERE ###
+    if abs(particle.r[0]) >= 10:
+        particle.v[0] = -particle.v[0]
     return dot,
 ```
 
